@@ -36,6 +36,34 @@ Head over to [vitejs.dev](https://vitejs.dev/) to learn more about configuring V
 
 ---
 
+## Firebase Key Concepts
+
+The app uses the **Firebase Realtime Database** (CDN imports, no build-step SDK) via the following core APIs:
+
+| API | Description |
+|-----|-------------|
+| `initializeApp(config)` | Bootstraps the Firebase app with the database URL |
+| `getDatabase(app)` | Returns a reference to the Realtime Database instance |
+| `ref(database, path)` | Creates a database reference at the given path (e.g. `"leads"`) |
+| `push(ref, value)` | Appends a new child node to the reference — used to save each URL |
+| `onValue(ref, callback)` | **Real-time listener** — fires immediately and on every subsequent data change; the callback receives a `snapshot` |
+| `snapshot.exists()` | Returns `true` if the snapshot contains any data (guards against empty renders) |
+| `snapshot.val()` | Returns the raw JavaScript value of the snapshot (an object keyed by push IDs) |
+| `Object.values(obj)` | Converts the Firebase push-ID-keyed object into a plain array for rendering |
+| `remove(ref)` | Deletes all data under the reference — triggered on double-click of DELETE ALL |
+
+> **`onValue` is the heart of the app.** It subscribes to the `leads` node and re-renders the list every time data changes in Firebase, keeping the UI always in sync — no manual refresh needed.
+
+### Recap Slides
+
+**Firebase Basics** — `import`, `initializeApp`, `getDatabase`, `ref`, `push`, `onValue`  
+![Recap — Firebase Basics](images/image.png)
+
+**Firebase Advanced** — `snapshot`, `snapshot.exists()`, Object→Array, `remove`, viewport, favicon, Web App Manifest  
+![Recap — Firebase Advanced](images/recap-firebase-advanced.png)
+
+---
+
 ## About Scrimba
 
 At Scrimba our goal is to create the best possible coding school at the cost of a gym membership! 💜  
